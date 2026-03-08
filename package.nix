@@ -7,11 +7,11 @@
 
 let
   pname = "browseros";
-  version = "0.28.0";
+  version = "0.41.0";
 
   src = fetchurl {
     url = "https://github.com/browseros-ai/BrowserOS/releases/download/v${version}/BrowserOS_v${version}_x64.AppImage";
-    hash = "sha256-YY3g0xNr/Jm4Q1PJSg27vO+M5jur/lM2a6iTN03BbCA=";
+    hash = "sha256-H9zz90XwpmiVHzD3CSO+g2IaZrM54Olerc3gsjr91Vk=";
   };
 
   appimageContents = appimageTools.extract { inherit pname version src; };
