@@ -7,27 +7,28 @@
 
 let
   pname = "browseros";
-  version = "0.41.0";
+  version = "0.44.0.1";
 
   src = fetchurl {
+    # https://github.com/browseros-ai/BrowserOS/releases/download/v0.44.0.1/BrowserOS_v0.44.0.1_x64.AppImage
     url = "https://github.com/browseros-ai/BrowserOS/releases/download/v${version}/BrowserOS_v${version}_x64.AppImage";
-    hash = "sha256-H9zz90XwpmiVHzD3CSO+g2IaZrM54Olerc3gsjr91Vk=";
+    hash = "sha256-ALnyVMnexYy48br9qbWaEbOZm7hJR9g39a9nYzbWXwo=";
   };
 
   appimageContents = appimageTools.extract { inherit pname version src; };
 
 in appimageTools.wrapType2 rec {
-  
+
   inherit pname version src;
   pkgs = pkgs;
 
   extraInstallCommands = ''
-    
+
     install -m 444 -D ${appimageContents}/"${pname}.desktop" -t $out/share/applications
-    
+
     substituteInPlace $out/share/applications/${pname}.desktop \
       --replace 'Exec=AppRun' 'Exec="${pname}"'
-    
+
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
 
